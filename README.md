@@ -1,7 +1,10 @@
 # Phore Mail
 
-Sends mail using phpmailer and text-template.
+A template wrapper around the famous *[PHPMailer](https://github.com/PHPMailer/PHPMailer)*
+Mailer class and the *[text/template](https://github.com/dermatthes/text-template)* template system.
 
+- Single Class
+- Multipart Mime 
 
 ## Demo template
 
@@ -13,11 +16,16 @@ Sends mail using phpmailer and text-template.
 
 {html}
     <body>
-        <b>This is Html</b> E-Mail
+        <b>Hello {= name}</b>,
+        <p>
+            This HTML Mime Mail
+        </p>
     </body>
 {/html}
 
-And This is text mail
+Hello {= name},
+
+This is the alternative Text body
 ```
 
 ## Script for sending a mail
@@ -39,3 +47,20 @@ $mailer->send($templateText, ["name"=>"Joe Doe"]);
 composer require phore/mail
 ```
 
+## Configuring PHPMailer / text-template
+
+```php
+$mailer = new PhoreMailer();
+$mailer->phpmailer->phpMailerFunction();
+```
+
+```php
+$mailer = new PhoreMailer();
+$mailer->textTemplate->textTemplateFunction();
+```
+
+
+## Demos
+
+- [Basic/simple template sending mail](docs/simple-demo.php)
+- [SMTP Auth](docs/smtp-auth-demo.php)
