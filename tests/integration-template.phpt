@@ -51,4 +51,7 @@ $mailer->send($template, [
     "recipient_name"    => "Some Name"
 ]);
 
+
+$mailer->send("{mail to='58c9d9dbca-ce7762@inbox.mailtrap.io' from='58c9d9dbca-ce7762@inbox.mailtrap.io' subject='hello'}Hello guys");
+
 Assert::true(true);
