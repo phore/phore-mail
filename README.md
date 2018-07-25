@@ -30,7 +30,20 @@ Hello {= name},
 This is the alternative Text body
 ```
 
+## Available mail parameters
+
+
+| Parameter | Name | Default |
+|-----------|------|---------|
+| `charset` | |
+| `to` ||
+| `from` ||
+| `cc` ||
+| `bcc` ||
+
 ## Script for sending a mail
+
+With auto-failover to second SMTP-Server.
 
 ```php
 $mailer = new PhoreMailer();

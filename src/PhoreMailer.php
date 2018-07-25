@@ -77,6 +77,9 @@ class PhoreMailer
             if (isset ($params["subject"])) {
                 $this->curMail->Subject = trim($params["subject"]);
             }
+            if (isset($params["charset"])) {
+                $this->curMail->CharSet = $params["charset"];
+            }
             if (isset ($params["from"])) {
                 $this->curMail->setFrom($params["from"], isset($params["name"]) ? $params["name"] : '');
             }
