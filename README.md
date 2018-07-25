@@ -66,3 +66,6 @@ $mailer->textTemplate->textTemplateFunction();
 
 - [Basic/simple template sending mail](docs/simple-demo.php)
 - [SMTP Auth](docs/smtp-auth-demo.php)
+
+
+
