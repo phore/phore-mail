@@ -81,5 +81,14 @@ $mailer->textTemplate->textTemplateFunction();
 - [SMTP Auth](docs/smtp-auth-demo.php)
 - [Setting charset](docs/setting-charset.php)
 
+## Debugging
 
+Instead of sending the mail, you can retrieve the PHPMailer
+instance by calling `prepare()`. 
+
+```
+$phpmail = $phoreMailer->prepare($template,[]);
+print_r ($phpmail);
+$phpmail->Send();
+```
 
