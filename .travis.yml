@@ -39,3 +39,4 @@ install:
 script:
 - ./vendor/bin/tester -p $TESTER_PHP_BIN -C ./test/
 - ./kickstart.sh test
+
