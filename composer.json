@@ -1,0 +1,29 @@
+{
+  "name": "phore/mail",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Matthias Leuffen",
+      "email": "leuffen@continue.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Phore\\Mail\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "require": {
+    "php" : ">7.1",
+    "text/template": "dev-master",
+    "phpmailer/phpmailer": "^6.0"
+  },
+  "suggest": {
+  },
+  "require-dev": {
+    "nette/tester": "^2.0"
+  }
+}
