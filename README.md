@@ -13,6 +13,7 @@ Mailer class and the *[text/template](https://github.com/dermatthes/text-templat
 {mail to="abc@abc.de" name="Some Name"}
 {mail from="sender@address.de" name="Me"}
 {mail cc="mail@email" name="Some Name"}
+{mail bcc="mail@email" name="Some Name"}
 {subject}Hello {=name} - You are the welcome{/subject}
 
 {html}
