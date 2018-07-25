@@ -14,7 +14,8 @@ require __DIR__ . "/../vendor/autoload.php";
 
 $template = <<<EOT
 {mail to=recipient_email name=recipient_name}
-{mail from="from@me.org" name="My organisation"}
+{mail from="leuffen@continue.de" name="My organisation"}
+{subject}This is a cute subject{/subject}
 
 {html}
     <body>
@@ -33,6 +34,6 @@ EOT;
 $mailer = new PhoreMailer();
 $mailer->send($template, [
     "name" => "John Doe",
-    "recipient_email"   =>"to@email.org",
+    "recipient_email"   => "leuffen@continue.de",
     "recipient_name"    => "Some Name"
 ]);

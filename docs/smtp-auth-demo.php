@@ -14,7 +14,8 @@ require __DIR__ . "/../vendor/autoload.php";
 
 $template = <<<EOT
 {mail to=recipient_email name=recipient_name}
-{mail from="from@me.org" name="My organisation"}
+{mail from=" 58c9d9dbca-ce7762@inbox.mailtrap.io" name="My organisation"}
+{subject}This is a cute subject for {=name}{/subject}
 
 {html}
     <body>
@@ -33,17 +34,16 @@ EOT;
 $mailer = new PhoreMailer();
 $mailer->config(
     [
-        "Host" => "smtp.example.de",
-        "Username" => "smtp@host.de",
-        "Password" => "secret",
+        "Host" => "smtp.mailtrap.io",
+        "Username" => "c0973a3d3f2666",
+        "Password" => "b671dd37eb3ac1",
         "SMTPAuth" => true,
-        "SMTPSecure" => "tls",
-        "Port" => 857
+        "Port" => 2525
     ]
 );
 
 $mailer->send($template, [
     "name" => "John Doe",
-    "recipient_email"   =>"to@email.org",
+    "recipient_email"   => "58c9d9dbca-ce7762@inbox.mailtrap.io",
     "recipient_name"    => "Some Name"
 ]);

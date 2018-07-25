@@ -41,6 +41,7 @@ class PhoreMailer
         if ($phpmailer === null)
             $phpmailer = new PHPMailer(true);
         $this->phpmailer = $phpmailer;
+        $this->_registerTemplateFunctions();
     }
 
     /**
@@ -88,13 +89,14 @@ class PhoreMailer
             return "";
         });
 
-        $this->textTemplate->addSection("subject", function($paramsArr, $content) {
+        $this->textTemplate->addSection("subject", function($content, array $paramsArr) {
             $this->curMail->Subject = trim($content);
         });
 
-        $this->textTemplate->addSection("html", function ($paramArr, $content)  {
+        $this->textTemplate->addSection("html", function ($content, array $paramArr)  {
             $this->curMail->Body = $content;
             $this->curMeta["html"] = true;
+            return "";
         });
 
 
@@ -118,7 +120,7 @@ class PhoreMailer
     }
 
 
-    public function send(string $template, array $data = []) : string
+    public function send(string $template, array $data = [])
     {
         $this->prepare($template, $data)->send();
     }
