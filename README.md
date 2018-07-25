@@ -5,6 +5,7 @@ Mailer class and the *[text/template](https://github.com/dermatthes/text-templat
 
 - Single Class
 - Multipart Mime 
+- Testing using [mailtrap.io](https://mailtrap.io)
 
 ## Demo template
 
