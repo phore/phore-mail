@@ -10,6 +10,7 @@ namespace Test;
 use Phore\Mail\PhoreMailer;
 use Tester\Assert;
 use Tester\Environment;
+require __DIR__ . "/../vendor/autoload.php";
 
 Environment::setup();
 

@@ -9,6 +9,7 @@ command:
   init:
     - "composer update"
 
-
+  test:
+    - "vendor/bin/tester -C tests/"
 
 
