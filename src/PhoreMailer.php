@@ -32,6 +32,9 @@ class PhoreMailer
 
     public $curMeta = [];
 
+
+    protected $smtpDirectConnectHeloHostname = null;
+
     public function __construct(PHPMailer $phpmailer=null, TextTemplate $textTemplate=null)
     {
         if ($textTemplate === null)
@@ -43,6 +46,20 @@ class PhoreMailer
         $this->phpmailer = $phpmailer;
         $this->_registerTemplateFunctions();
     }
+
+    /**
+     * It this is set and no SMTP relay host is
+     * set, it will load the MX Record of the
+     * to Address and try connecting this service
+     * directly (without any SMTP server in between)
+     *
+     * @param string $heloHotname
+     */
+    public function setSmtpDirectConnect(string $heloHotname)
+    {
+        $this->smtpDirectConnectHeloHostname = $heloHotname;
+    }
+
 
     /**
      * Set PhpMailers config variables by array
@@ -118,6 +135,26 @@ class PhoreMailer
         } else {
             $this->curMail->Body = $textData;
         }
+
+        if ($this->curMail->Host == "localhost" && $this->smtpDirectConnectHeloHostname !== null) {
+            $this->curMail->Hostname = $this->smtpDirectConnectHeloHostname;
+            $this->curMail->isSMTP();
+
+            $addr = array_keys($this->curMail->getAllRecipientAddresses());
+            if (count ($addr) !== 1)
+                throw new \InvalidArgumentException("Cannot send to more than one recipient using direct-smtp-connect mode");
+
+            $hostname = array_pop(explode('@', $addr[0]));
+            if (getmxrr($hostname, $mxRR)) {
+
+                $this->curMail->Host = $mxRR[0];
+            } else {
+                $this->curMail->Host = $hostname;
+            }
+            $this->curMail->isSMTP();
+            $this->curMail->Hostname = $this->smtpDirectConnectHeloHostname;
+        }
+
 
         return $this->curMail;
     }
