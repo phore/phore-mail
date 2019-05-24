@@ -143,8 +143,8 @@ class PhoreMailer
             $addr = array_keys($this->curMail->getAllRecipientAddresses());
             if (count ($addr) !== 1)
                 throw new \InvalidArgumentException("Cannot send to more than one recipient using direct-smtp-connect mode");
-
-            $hostname = array_pop(explode('@', $addr[0]));
+            $hostname = explode('@', $addr[0]);
+            $hostname = array_pop($hostname);
             if (getmxrr($hostname, $mxRR)) {
 
                 $this->curMail->Host = $mxRR[0];
