@@ -37,6 +37,5 @@ install:
 - composer update --no-interaction --prefer-source
 
 script:
-- ./vendor/bin/tester -p $TESTER_PHP_BIN -C ./test/
 - ./kickstart.sh test
 
