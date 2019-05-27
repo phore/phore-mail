@@ -47,6 +47,26 @@ class PhoreMailer
         $this->_registerTemplateFunctions();
     }
 
+
+    /**
+     * Set the auth by string:
+     * 
+     * smtp://user:passwd@mailserver:port
+     * 
+     * 
+     * @param string $relay
+     */
+    public function setRelay(string $relay)
+    {
+        $url = parse_url($relay);
+        $this->curMail->Host = $url["host"];
+        $this->curMail->Username = $url["user"];
+        $this->curMail->Password = $url["pass"];
+        $this->curMail->Port = isset ($url["port"]) ? $url["port"] : 25;
+        $this->curMail->isSMTP();
+    }
+    
+    
     /**
      * It this is set and no SMTP relay host is
      * set, it will load the MX Record of the
