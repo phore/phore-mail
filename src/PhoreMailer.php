@@ -59,11 +59,11 @@ class PhoreMailer
     public function setRelay(string $relay)
     {
         $url = parse_url($relay);
-        $this->curMail->Host = $url["host"];
-        $this->curMail->Username = $url["user"];
-        $this->curMail->Password = $url["pass"];
-        $this->curMail->Port = isset ($url["port"]) ? $url["port"] : 25;
-        $this->curMail->isSMTP();
+        $this->phpmailer->Host = $url["host"];
+        $this->phpmailer->Username = isset($url["user"]) ? $url["user"] : '';
+        $this->phpmailer->Password = isset($url["pass"]) ? $url["pass"] : '';
+        $this->phpmailer->Port = isset ($url["port"]) ? $url["port"] : 25;
+        $this->phpmailer->isSMTP();
     }
     
     
