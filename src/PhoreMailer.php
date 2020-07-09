@@ -180,6 +180,8 @@ class PhoreMailer
 
         $textData = $this->textTemplate->loadTemplate($template)->apply($data);
 
+        $textData = ltrim($textData);
+
         if ($this->curMeta["html"]) {
             $this->curMail->AltBody = $textData;
         } else {

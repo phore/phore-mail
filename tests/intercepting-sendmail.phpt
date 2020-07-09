@@ -52,4 +52,4 @@ $mailer->send($template, [
 
 print_r ($res);
 
-Assert::equal(true, true);
+Assert::equal(false, true);
