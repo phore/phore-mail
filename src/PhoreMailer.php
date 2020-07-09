@@ -33,6 +33,12 @@ class PhoreMailer
     public $curMeta = [];
 
 
+    /**
+     * @var null|PHPMailer
+     */
+    private $sendMailFunction = null;
+
+
     protected $smtpDirectConnectHeloHostname = null;
 
     public function __construct(PHPMailer $phpmailer=null, TextTemplate $textTemplate=null)
@@ -65,8 +71,9 @@ class PhoreMailer
         $this->phpmailer->Port = isset ($url["port"]) ? $url["port"] : 25;
         $this->phpmailer->isSMTP();
     }
-    
-    
+
+
+
     /**
      * It this is set and no SMTP relay host is
      * set, it will load the MX Record of the
@@ -78,6 +85,28 @@ class PhoreMailer
     public function setSmtpDirectConnect(string $heloHotname)
     {
         $this->smtpDirectConnectHeloHostname = $heloHotname;
+    }
+
+
+    /**
+     * Set a alternative function to send the mail (instead of
+     * using the default PHPMailer send function
+     *
+     * <example>
+     * $mailer->setSendMailFunction(function (PHPMailer $mail, PhoreMailer $phoreMailer) {
+     *      $res["to"] = $mail->getAllRecipientAddresses();
+     *      $res["subject"] = $mail->Subject;
+     *      $res["html"] = $mail->Body;
+     *      $res["text"] = $mail->AltBody;
+     * });
+     *
+     * </example>
+     *
+     * @param callable $fn
+     */
+    public function setSendMailFunction(callable $fn)
+    {
+        $this->sendMailFunction = $fn;
     }
 
 
@@ -143,6 +172,7 @@ class PhoreMailer
     }
 
 
+
     public function prepare(string $template, array $data = []) : PHPMailer
     {
         $this->curMail = clone $this->phpmailer;
@@ -163,8 +193,10 @@ class PhoreMailer
             $addr = array_keys($this->curMail->getAllRecipientAddresses());
             if (count ($addr) !== 1)
                 throw new \InvalidArgumentException("Cannot send to more than one recipient using direct-smtp-connect mode");
+
             $hostname = explode('@', $addr[0]);
             $hostname = array_pop($hostname);
+
             if (getmxrr($hostname, $mxRR)) {
 
                 $this->curMail->Host = $mxRR[0];
@@ -180,9 +212,23 @@ class PhoreMailer
     }
 
 
+    /**
+     * Parse the Template and send the mail directly
+     *
+     * @param string $template
+     * @param array $data
+     * @return bool
+     * @throws \PHPMailer\PHPMailer\Exception
+     */
     public function send(string $template, array $data = [])
     {
+        if ($this->sendMailFunction !== null) {
+            $mailer = $this->prepare($template, $data);
+            ($this->sendMailFunction)($mailer, $this);
+            return true;
+        }
         $this->prepare($template, $data)->send();
+        return true;
     }
 
 

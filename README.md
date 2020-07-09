@@ -75,6 +75,16 @@ $mailer->textTemplate->textTemplateFunction();
 ```
 
 
+## Sending mail without mailserver using SMTP
+
+> This method is for testing only. Most Mailservers will
+> reject mail transferred with this method.
+
+```
+
+```
+
+
 ## Demos
 
 - [Basic/simple template sending mail](docs/simple-demo.php)
@@ -90,5 +100,16 @@ instance by calling `prepare()`.
 $phpmail = $phoreMailer->prepare($template,[]);
 print_r ($phpmail);
 $phpmail->Send();
+```
+
+## Intercepting outgoing mail
+
+```php
+$mailer->setSendMailFunction(function (PHPMailer $mail, PhoreMailer $phoreMailer) {
+     $res["to"] = $mail->getAllRecipientAddresses();
+     $res["subject"] = $mail->Subject;
+     $res["html"] = $mail->Body;
+     $res["text"] = $mail->AltBody;
+});
 ```
 
