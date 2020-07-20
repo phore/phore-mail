@@ -50,6 +50,8 @@ class PhoreMailer
         if ($phpmailer === null)
             $phpmailer = new PHPMailer(true);
         $this->phpmailer = $phpmailer;
+        $this->phpmailer->XMailer = ' ';
+
         $this->_registerTemplateFunctions();
     }
 
