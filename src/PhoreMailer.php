@@ -58,7 +58,8 @@ class PhoreMailer
      * Set the auth by string:
      * 
      * smtp://user:passwd@mailserver:port
-     * 
+     *
+     * outlook://
      * 
      * @param string $relay
      */
@@ -180,7 +181,7 @@ class PhoreMailer
 
         $textData = $this->textTemplate->loadTemplate($template)->apply($data);
 
-        $textData = ltrim($textData);
+        $textData = "\n" . ltrim($textData);
 
         if ($this->curMeta["html"]) {
             $this->curMail->AltBody = $textData;

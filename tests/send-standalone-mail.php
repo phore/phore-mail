@@ -10,7 +10,7 @@ require __DIR__ . "/../vendor/autoload.php";
 
 
 $template = <<<EOT
-{mail to="matthes@leuffen2.de" name="Matthias Leuffen"}
+{mail to="matthes@leuffen.de" name="Matthias Leuffen"}
 {mail from="some@infracamp.org" name="My organisation"}
 {subject}This is a cute subject for template Mail{/subject}
 
