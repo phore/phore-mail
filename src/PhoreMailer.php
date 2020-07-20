@@ -183,7 +183,7 @@ class PhoreMailer
 
         $textData = "\n" . ltrim($textData);
 
-        if ($this->curMeta["html"]) {
+        if ($this->curMeta["html"] === true) {
             $this->curMail->AltBody = $textData;
         } else {
             $this->curMail->Body = $textData;
