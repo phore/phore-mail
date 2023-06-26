@@ -58,11 +58,11 @@ class PhoreMailer
 
     /**
      * Set the auth by string:
-     * 
+     *
      * smtp://user:passwd@mailserver:port
      *
      * outlook://
-     * 
+     *
      * @param string $relay
      */
     public function setRelay(string $relay)
