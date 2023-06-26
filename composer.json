@@ -15,7 +15,7 @@
   },
   "require": {
     "php" : ">7.0",
-    "text/template": "^2.8",
+    "text/template": "^2.8.5",
     "phpmailer/phpmailer": "^v6.8"
   },
   "suggest": {
